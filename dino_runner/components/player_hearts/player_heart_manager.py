@@ -1,12 +1,17 @@
+import pygame
 from dino_runner.components.player_hearts.heart import Heart
 from dino_runner.utils.constants import HEART_COUNT
 
 class PlayerHeartManager:
     def __init__(self):
         self.heart_count = HEART_COUNT
+        self.sonido_salto = pygame.mixer.Sound("mario-bros-hammer-throw.mp3")
         
     def reduce_heart(self):
+        self.sonido_salto.play()
         self.heart_count -= 1
+
+        
         
     def draw(self, screen):
         x_position = 10

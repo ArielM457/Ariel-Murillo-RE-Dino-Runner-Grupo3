@@ -31,9 +31,9 @@ class Game:
         self.player_heart_manager = PlayerHeartManager()
         self.power_up_manager = PowerUpManager()
         self.color2 = img()
-        self.sonido_Inicio = pygame.mixer.Sound("clash-royale-battle-1.mp3")
+        self.sonido_Inicio = pygame.mixer.Sound("fnaf-start-day.mp3")
+        self.sonido_salto = pygame.mixer.Sound("jumping-mike-mario.mp3")
         
-        self.sonido_agacharse = pygame.mixer.Sound("mario-bros-mamma-mia.mp3")
         self.sonido_vida = pygame.mixer.Sound("gta-san-andreas-f.mp3")
     
     def run(self):
@@ -107,7 +107,7 @@ class Game:
     def inicio(self):
         
             self.runing = True
-            self.sonido_Inicio.play()
+            self.sonido_Inicio.play
             init()
             screen = display.set_mode((1100,600))
             fondo = image.load("dino.png")
@@ -146,6 +146,26 @@ class Game:
             text, text_rect = get_centered_message("Press any key to Start")
             self.screen.blit(text, text_rect)
         elif death_count > 0:
+            
+            self.sonido_Inicio.play()
+            init()
+            screen = display.set_mode((1100,600))
+            fondo = image.load("img.png")
+            fondo = transform.scale(fondo, (1100,600))
+            a=0
+            b=0
+            if b==0:
+                while True:
+                    a=a+1
+                    b+=1
+                    if a==1000:
+                        break
+                    screen.fill((255, 255, 255))
+                    for e in event.get():
+                        if e.type ==  QUIT:sys.exit()
+                    screen.blit(fondo, (0,0))
+                    display.flip()
+            self.sonido_Inicio.play()
             text, text_rect = get_centered_message("Press any key to Restart")
             score, score_rect = get_centered_message("yout Score: "+ str(self.points), height = half_screen_height + 50)
             self.screen.blit(score, score_rect)

@@ -31,10 +31,9 @@ class Game:
         self.player_heart_manager = PlayerHeartManager()
         self.power_up_manager = PowerUpManager()
         self.color2 = img()
-        self.sonido_Inicio = pygame.mixer.Sound("clash-royale-battle-1.mp3")
+        self.sonido_Inicio = pygame.mixer.Sound("fnaf-start-day.mp3")
+        self.sonido_over = pygame.mixer.Sound("game_over.mp3")
         
-        self.sonido_agacharse = pygame.mixer.Sound("mario-bros-mamma-mia.mp3")
-        self.sonido_vida = pygame.mixer.Sound("gta-san-andreas-f.mp3")
     
     def run(self):
         self.obstacle_manager.reset_obstacles(self)
@@ -146,10 +145,32 @@ class Game:
             text, text_rect = get_centered_message("Press any key to Start")
             self.screen.blit(text, text_rect)
         elif death_count > 0:
+            self.runing = True
+            
+            init()
+            screen = display.set_mode((1100,600))
+            fondo = image.load("dino.png")
+            fondo = transform.scale(fondo, (1100,600))
+            a=0
+            b=0
+            if b==0:
+                while True:
+                    a=a+1
+                    b+=1
+                    if a==1000:
+                        break
+                    screen.fill((255, 255, 255))
+                    for e in event.get():
+                        if e.type ==  QUIT:sys.exit()
+                    screen.blit(fondo, (0,0))
+                    text, text_rect = get_centered_message("BIENVENIDO, PRESS ENTER")
+                    self.screen.blit(text, text_rect)
+                    display.flip()
             text, text_rect = get_centered_message("Press any key to Restart")
             score, score_rect = get_centered_message("yout Score: "+ str(self.points), height = half_screen_height + 50)
             self.screen.blit(score, score_rect)
             self.screen.blit(text, text_rect)
+
             
     def handle_key_events_on_menu(self):
         for event in pygame.event.get():
@@ -162,7 +183,9 @@ class Game:
                 exit()
             
             if event.type == pygame.KEYDOWN:
+                self.sonido_over.play()
                 self.run()
+                self.sonido_Inicio.play()
             
           
     
